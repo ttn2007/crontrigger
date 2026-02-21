@@ -1,0 +1,32 @@
+name: Trigger Cloudflare Worker
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'   # هر ۵ دقیقه – می‌تونی تغییر بدی
+
+  workflow_dispatch:        # دکمه دستی Run workflow
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check secret availability
+        run: |
+          echo "CRON_SECRET check:"
+          if [ -z "${CRON_SECRET}" ]; then
+            echo "❌ CRON_SECRET is empty or missing"
+            exit 1
+          else
+            echo "✅ CRON_SECRET is present"
+            echo "Length: ${#CRON_SECRET} characters"
+          fi
+
+      - name: Trigger Worker
+        env:
+          CRON_KEY: ${{ secrets.CRON_SECRET }}
+        run: |
+          echo "Triggering Worker..."
+          curl -v -X GET \
+            -H "x-cron-key: $CRON_KEY" \
+            https://bitcoin.coinprice26.workers.dev/run
