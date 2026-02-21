@@ -1,4 +1,4 @@
-name: Test Trigger Worker - Hardcoded Key
+name: Run Cron Trigger
 
 on:
   schedule:
