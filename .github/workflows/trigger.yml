@@ -2,7 +2,7 @@ name: Run Cron Trigger
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 * * * *'   # هر یک ساعت
   workflow_dispatch:
 
 jobs:
@@ -10,12 +10,58 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Trigger Cloudflare Worker
+      - name: Trigger bitcoin Worker
         run: |
-          echo "در حال ارسال درخواست تست به Worker..."
-
-          curl -v -X GET \
+          echo "Triggering bitcoin..."
+          curl -f -s -S -X GET \
             -H "x-cron-key: 8f4b9e2a1c7d5f3b9e8a2d6c4f1b7e9a3d5f2c8b6e0a1d" \
             https://bitcoin.coinprice26.workers.dev/run
+          echo "bitcoin done ✅"
 
-          echo "درخواست تمام شد"
+      - name: Trigger tether Worker
+        run: |
+          echo "Triggering tether..."
+          curl -f -s -S -X GET \
+            -H "x-cron-key: 8f4b9e2a1c7d5f3b9e8a2d6c4f1b7e9a3d5f2c8b6e0a1d" \
+            https://tether.coinprice26.workers.dev/run
+          echo "tether done ✅"
+
+      - name: Trigger ethereum Worker
+        run: |
+          echo "Triggering ethereum..."
+          curl -f -s -S -X GET \
+            -H "x-cron-key: 8f4b9e2a1c7d5f3b9e8a2d6c4f1b7e9a3d5f2c8b6e0a1d" \
+            https://ethereum.coinprice26.workers.dev/run
+          echo "ethereum done ✅"
+
+      - name: Trigger ripple Worker
+        run: |
+          echo "Triggering ripple..."
+          curl -f -s -S -X GET \
+            -H "x-cron-key: 8f4b9e2a1c7d5f3b9e8a2d6c4f1b7e9a3d5f2c8b6e0a1d" \
+            https://ripple.coinprice26.workers.dev/run
+          echo "ripple done ✅"
+
+      - name: Trigger solana Worker
+        run: |
+          echo "Triggering solana..."
+          curl -f -s -S -X GET \
+            -H "x-cron-key: 8f4b9e2a1c7d5f3b9e8a2d6c4f1b7e9a3d5f2c8b6e0a1d" \
+            https://solana.coinprice26.workers.dev/run
+          echo "solana done ✅"
+
+      - name: Trigger toncoin Worker
+        run: |
+          echo "Triggering toncoin..."
+          curl -f -s -S -X GET \
+            -H "x-cron-key: 8f4b9e2a1c7d5f3b9e8a2d6c4f1b7e9a3d5f2c8b6e0a1d" \
+            https://toncoin.coinprice26.workers.dev/run
+          echo "toncoin done ✅"
+
+      - name: Trigger monero Worker
+        run: |
+          echo "Triggering monero..."
+          curl -f -s -S -X GET \
+            -H "x-cron-key: 8f4b9e2a1c7d5f3b9e8a2d6c4f1b7e9a3d5f2c8b6e0a1d" \
+            https://monero.coinprice26.workers.dev/run
+          echo "monero done ✅"
